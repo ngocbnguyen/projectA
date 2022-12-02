@@ -10,7 +10,35 @@
 
 <body>
     <h1>Hello</h1>
-    <aside>Im first here</aside>
+    <aside>Im third here</aside>
+    <script>
+        var dropdown = document.createElement('select');
+var table = document.createElement('table');
+document.body.appendChild(dropdown);
+document.body.appendChild(table);
+var api = 'https://api.github.com/users/';
+var users = ['davidwparker', 'jquery', 'nodejs', 'angular'];
+for (var i = 0; i < users.length; i++) {
+  var option = document.createElement('option');
+  option.innerHTML = users[i];
+  dropdown.appendChild(option);
+}
+dropdown.addEventListener('change', function() {
+  var user = dropdown.value;
+  var url = api + user;
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.addEventListener('load', function() {
+    var data = JSON.parse(xhr.responseText);
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.innerHTML = data.name;
+    tr.appendChild(td);
+    table.appendChild(tr);
+  });
+  xhr.send();
+});
+    </script>
 </body>
 
 </html>
